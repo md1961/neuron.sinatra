@@ -1,0 +1,59 @@
+body, p, ol, ul, td {
+  font-family: arial, sans-serif;
+  font-size:   12px;
+  /*
+  line-height: 14px;
+  */
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a, a:visited { color: #000; }
+a:hover { color: #fff; background-color:#000; }
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+.notice {
+  color: green;
+}
+
+/* User-defined styles */
+
+.table_base {
+  border: 2px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: white;
+}
+
+.table_base th {
+  font-weight: normal;
+  color: white;
+  background-color: #7F7F7F;
+  padding: 0px 4px 0px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table_base td {
+  padding: 0px 4px 0px;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table_row0 {
+  background-color: #FFFFFF;
+}
+
+.table_row1 {
+  background-color: #CFCFCF;
+}
+
