@@ -9,11 +9,11 @@
   %body
     %h2 NEURON ログイン中のユーザ
     %div
-      %a{:href=>url('/detailed')} 詳細
+      =link_to_unless_current('/detailed', "詳細")
       &nbsp;&nbsp;
-      %a{:href=>url('/max_user_by_hour')} 時間ごとの最大ユーザ数
+      =link_to_unless_current('/max_user_by_hour', "時間ごとの最大ユーザ数")
       &nbsp;&nbsp;
-      %a{:href=>url('/max_user_by_date')} 日ごとの最大ユーザ数
+      =link_to_unless_current('/max_user_by_date', "日ごとの最大ユーザ数")
     %br
     != yield
 

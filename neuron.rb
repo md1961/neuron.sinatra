@@ -26,3 +26,14 @@ get '/max_user_by_date' do
   haml :max_user_by_date
 end
 
+
+helpers do
+  def current?(path)
+    path == request.path_info
+  end
+
+  def link_to_unless_current(path, label)
+    current?(path) ? "<b>#{label}</b>" : "<a href='#{url(path)}'>#{label}</a>"
+  end
+end
+
