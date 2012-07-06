@@ -2,7 +2,7 @@
   - @loggedins.each do |entry|
     %tr
       %td
-        %div(style='width: 160px')== #{entry.date} #{entry.time}
-      %td(align='right')= entry.users.size
+        %div(style='width: 8em')== #{entry.date} #{entry.time}
+      %td(align='right' style='width: 5em')== #{entry.users.size} users
       %td= entry.users.map(&:description).join(', ')
 
