@@ -21,3 +21,8 @@ get '/max_user_by_hour' do
   haml :max_user_by_hour
 end
 
+get '/max_user_by_date' do
+  @date_and_max_users = NeuronLoggedin.max_user_by_date
+  haml :max_user_by_date
+end
+

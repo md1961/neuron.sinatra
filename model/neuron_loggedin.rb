@@ -13,6 +13,11 @@ class NeuronLoggedin
     all_by_hour.map { |date_hour, entries| [date_hour, entries.map(&:users).map(&:size).max] }
   end
 
+  def self.max_user_by_date
+    all_by_date = all.group_by { |entry| "#{entry.date}" }
+    all_by_date.map { |date, entries| [date, entries.map(&:users).map(&:size).max] }
+  end
+
   class Entry
     attr_reader :date, :time, :users
 
