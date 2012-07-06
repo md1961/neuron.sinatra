@@ -16,3 +16,8 @@ get '/detailed' do
   haml :detailed
 end
 
+get '/max_user_by_hour' do
+  @hour_and_max_users = NeuronLoggedin.max_user_by_hour
+  haml :max_user_by_hour
+end
+

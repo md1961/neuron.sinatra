@@ -2,8 +2,15 @@
 LOG_FILENAME = '/home/kumagai/neuron_loggedins.log'
 
 class NeuronLoggedin
+
+  # Entry の配列を返す
   def self.all
     read_log
+  end
+
+  def self.max_user_by_hour
+    all_by_hour = all.group_by { |entry| "#{entry.date} #{entry.time[0, 2]}H" }
+    all_by_hour.map { |date_hour, entries| [date_hour, entries.map(&:users).map(&:size).max] }
   end
 
   class Entry

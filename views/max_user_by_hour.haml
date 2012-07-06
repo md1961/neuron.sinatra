@@ -1,0 +1,7 @@
+%table.table_base
+  - @hour_and_max_users.each do |hour, max_users|
+    %tr
+      %td
+        %div(align='center' style='width: 9em')= hour
+      %td(align='right' style='width: 5em')== #{max_users} users
+
