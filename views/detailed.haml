@@ -1,0 +1,8 @@
+%table
+  - @loggedins.each do |entry|
+    %tr
+      %td
+        %div(style='width: 160px')== #{entry.date} #{entry.time}
+      %td(align='right')= entry.users.size
+      %td= entry.users.map(&:description).join(', ')
+
