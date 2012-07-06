@@ -8,7 +8,7 @@ set :port, 9090
 
 
 get '/' do
-  haml :index
+  redirect '/detailed'
 end
 
 get '/detailed' do
