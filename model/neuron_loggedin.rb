@@ -18,6 +18,7 @@ class NeuronLoggedin
 
     def initialize(line)
       @date, @time = line.split
+      @date += "(#{Date.parse(@date).strftime('%a')})"
       @time = @time[0, 5]
       @users = Array.new
     end
