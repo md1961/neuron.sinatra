@@ -78,7 +78,7 @@ class NeuronLoggedin
       end
       entries << entry if entry
 
-      return entries
+      return entries.reverse
     end
 
     RE_SUMMARY = /\A\d/
