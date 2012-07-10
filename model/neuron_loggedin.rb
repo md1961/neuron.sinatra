@@ -1,3 +1,4 @@
+# vi: set fileencoding=utf-8 :
 
 LOG_FILENAME = '/home/kumagai/neuron_loggedins.log'
 
@@ -30,10 +31,32 @@ class NeuronLoggedin
   end
 
   class User
-    attr_reader :description
+    attr_reader :id, :real_name, :division
+
+    RE_TO_PARSE_LINE = /([^(]+)\(([^@]*)@([^)]*)\)/
+    RE_TO_DELETE_FROM_DIVISION = /,勇払共通|勇払共通,/u
 
     def initialize(line)
-      @description = line
+      unless line =~ RE_TO_PARSE_LINE
+        raise "Cannot parse argument line '#{line}'"
+      end
+
+      @id        = $1
+      @real_name = $2
+      @division  = $3
+      @division.gsub!(RE_TO_DELETE_FROM_DIVISION, '')
+    end
+
+    def to_s
+      s = "#{id}"
+      unless real_name.empty?
+        s += "(#{real_name}"
+        unless division.empty?
+          s += "@#{division}"
+        end
+        s += ")"
+      end
+      s
     end
   end
 
