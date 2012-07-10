@@ -28,6 +28,10 @@ class NeuronLoggedin
       @time = @time[0, 5]
       @users = Array.new
     end
+
+    def users_by_division
+      users.group_by { |user| user.division }
+    end
   end
 
   class User
@@ -50,11 +54,7 @@ class NeuronLoggedin
     def to_s
       s = "#{id}"
       unless real_name.empty?
-        s += "(#{real_name}"
-        unless division.empty?
-          s += "@#{division}"
-        end
-        s += ")"
+        s += "(#{real_name})"
       end
       s
     end

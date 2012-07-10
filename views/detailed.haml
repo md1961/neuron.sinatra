@@ -4,5 +4,8 @@
       %td
         %div(align='center' style='width: 11em')== #{entry.date} #{entry.time}
       %td(align='right' style='width: 5em')== #{entry.users.size} users
-      %td= entry.users.join(', ')
+      %td
+        - entry.users_by_division.each do |division, users|
+          - division = '無所属' if division.empty?
+          %div== #{division} #{users.size}人 : #{users.join(',')}
 
