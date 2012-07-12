@@ -1,5 +1,8 @@
 # vi: set fileencoding=utf-8 :
 
+require 'reverse_line_reader'
+
+
 LOG_FILENAME = '/home/kumagai/neuron_loggedins.log'
 
 class NeuronLoggedin
@@ -22,11 +25,11 @@ class NeuronLoggedin
   class Entry
     attr_reader :date, :time, :users
 
-    def initialize(line)
+    def initialize(line, users)
       @date, @time = line.split
       @date += "(#{Date.parse(@date).strftime('%a')})"
       @time = @time[0, 5]
-      @users = Array.new
+      @users = users
     end
 
     def users_by_division
@@ -38,7 +41,7 @@ class NeuronLoggedin
     attr_reader :id, :real_name, :division
 
     RE_TO_PARSE_LINE = /([^(]+)\(([^@]*)@([^)]*)\)/
-    RE_TO_DELETE_FROM_DIVISION = /,勇払共通|勇払共通,/u
+    RE_TO_DELETE_FROM_DIVISION = /,勇払共通|勇払共通,/
 
     def initialize(line)
       unless line =~ RE_TO_PARSE_LINE
@@ -64,21 +67,22 @@ class NeuronLoggedin
 
     def self.read_log
       entries = Array.new
-
-      entry = nil
+      users   = Array.new
       open(LOG_FILENAME) do |f|
-        f.each do |line|
+        ReverseLineReader.new(f).each do |line|
+          line.force_encoding(Encoding.default_external)
           unless summary?(line)
-            entry.users << User.new(line)
+            users << User.new(line)
           else
-            entries << entry if entry
-            entry = Entry.new(line)
+            entry = Entry.new(line, users)
+            entries << entry
+
+            users = Array.new
           end
         end
       end
-      entries << entry if entry
 
-      return entries.reverse
+      return entries
     end
 
     RE_SUMMARY = /\A\d/
