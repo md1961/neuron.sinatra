@@ -4,17 +4,21 @@ require 'sinatra'
 require 'model/neuron_loggedin'
 
 
+DEFAULT_DAYS_TO_SHOW = 7
+DEFAULT_DATE_FROM = (Date.today - DEFAULT_DAYS_TO_SHOW + 1).strftime(NeuronLoggedin::DATE_FORMAT)
+
+
 get '/' do
   redirect '/detailed'
 end
 
 get '/detailed' do
-  @loggedins = NeuronLoggedin.all
+  @loggedins = NeuronLoggedin.all(from: DEFAULT_DATE_FROM)
   haml :detailed
 end
 
 get '/max_user_by_hour' do
-  @hour_and_max_users = NeuronLoggedin.max_user_by_hour
+  @hour_and_max_users = NeuronLoggedin.max_user_by_hour(from: DEFAULT_DATE_FROM)
   haml :max_user_by_hour
 end
 

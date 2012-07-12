@@ -5,20 +5,23 @@ require 'reverse_line_reader'
 
 LOG_FILENAME = '/home/kumagai/neuron_loggedins.log'
 
+
 class NeuronLoggedin
 
+  DATE_FORMAT = '%Y-%m-%d'
+
   # Entry の配列を返す
-  def self.all
-    read_log
+  def self.all(options={})
+    read_log(options)
   end
 
-  def self.max_user_by_hour
-    all_by_hour = all.group_by { |entry| "#{entry.date} #{entry.time[0, 2]}H" }
+  def self.max_user_by_hour(options={})
+    all_by_hour = all(options).group_by { |entry| "#{entry.date} #{entry.time[0, 2]}H" }
     all_by_hour.map { |date_hour, entries| [date_hour, entries.map(&:users).map(&:size).max] }
   end
 
-  def self.max_user_by_date
-    all_by_date = all.group_by { |entry| "#{entry.date}" }
+  def self.max_user_by_date(options={})
+    all_by_date = all(options).group_by { |entry| "#{entry.date}" }
     all_by_date.map { |date, entries| [date, entries.map(&:users).map(&:size).max] }
   end
 
@@ -65,7 +68,9 @@ class NeuronLoggedin
 
   private
 
-    def self.read_log
+    def self.read_log(options={})
+      date_from = options[:from]
+
       entries = Array.new
       users   = Array.new
       open(LOG_FILENAME) do |f|
@@ -75,6 +80,7 @@ class NeuronLoggedin
             users << User.new(line)
           else
             entry = Entry.new(line, users)
+            break if date_from && entry.date < date_from
             entries << entry
 
             users = Array.new
