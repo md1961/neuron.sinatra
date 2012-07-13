@@ -57,3 +57,7 @@ div.field, div.actions {
   background-color: #CFCFCF;
 }
 
+tr.nighttime {
+  background-color: lightgrey;
+}
+
