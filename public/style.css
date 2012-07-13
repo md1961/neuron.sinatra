@@ -61,3 +61,7 @@ tr.nighttime {
   background-color: lightgrey;
 }
 
+tr.weekend {
+  background-color: lightpink;
+}
+

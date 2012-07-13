@@ -1,6 +1,7 @@
 %table.table_base
   - @date_and_max_users.each do |date, max_users|
-    %tr
+    - day_of_week = date[-4 .. -2]
+    %tr{:class=>%w(Sat Sun).include?(day_of_week) ? 'weekend' : ''}
       %td
         %div(style='width: 9em')= date
       %td(align='right' style='width: 5em')== #{max_users} users
