@@ -50,14 +50,20 @@ class NeuronLoggedin
       @time = @time[0, 5]
     end
 
+    # @time を "13H" の形式に変換
     def to_hourly
       @time = @time[0, 2] + 'H'
       self
     end
 
+    # @time を空文字にする
     def to_daily
       @time = ''
       self
+    end
+
+    def before_daily?(other)
+      Date.parse(date) < (other.is_a?(Date) ? other : Date.parse(other))
     end
 
     def daytime?
@@ -126,7 +132,7 @@ class NeuronLoggedin
             users << User.new(line)
           else
             entry = Entry.new(line, users)
-            break if date_from && entry.timestamp.date < date_from
+            break if date_from && entry.timestamp.before_daily?(date_from)
             entries << entry
 
             users = Array.new
