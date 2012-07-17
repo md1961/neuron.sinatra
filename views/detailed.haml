@@ -2,7 +2,7 @@
   - @loggedins.each do |entry|
     %tr
       %td
-        %div(align='center' style='width: 11em')== #{entry.date} #{entry.time}
+        %div(align='center' style='width: 11em')= entry.timestamp
       %td(align='right' style='width: 5em')== #{entry.users.size} users
       %td
         - entry.users_by_division.each do |division, users|

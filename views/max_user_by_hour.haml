@@ -1,9 +1,7 @@
 %table.table_base
-  - @hour_and_max_users.each do |hour, max_users|
-    - hour_num = hour[-3 .. -2].to_i
-    - clazz = 7 <= hour_num && hour_num <= 18 ? 'daytime' : 'nighttime'
-    %tr{:class=>clazz}
+  - @timestamp_and_max_users.each do |timestamp, max_users|
+    %tr{:class=>timestamp.daytime? ? 'daytime' : 'nighttime'}
       %td
-        %div(align='center' style='width: 11em')= hour
+        %div(align='center' style='width: 11em')= timestamp
       %td(align='right' style='width: 5em')== #{max_users} users
 
