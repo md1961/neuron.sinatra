@@ -4,7 +4,7 @@ require 'sinatra'
 require 'model/neuron_loggedin'
 
 
-DEFAULT_DAYS_TO_SHOW = 7
+DEFAULT_DAYS_TO_SHOW = 3
 
 
 get '/' do
