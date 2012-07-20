@@ -46,7 +46,6 @@ class NeuronLoggedin
     # @date は "2012-07-17(Tue)"、@time は "13:25" の形式にする
     def initialize(line)
       @date, @time = line.split
-      @date += "(#{Date.parse(@date).strftime('%a')})"
       @time = @time[0, 5]
     end
 
@@ -77,7 +76,7 @@ class NeuronLoggedin
 
     def to_s
       strs = Array.new
-      strs << date
+      strs << date + "(#{Date.parse(date).strftime('%a')})"
       strs << time unless time.empty?
       strs.join(' ')
     end
