@@ -12,11 +12,7 @@ get '/' do
 end
 
 get '/detailed' do
-  redirect "/detailed/#{default_date_from}"
-end
-
-get '/detailed/:date_from' do
-  date_from = params[:date_from]
+  date_from = params[:from] || default_date_from
   @loggedins = NeuronLoggedin.all(from: date_from)
   haml :detailed
 end
@@ -34,7 +30,7 @@ end
 
 helpers do
   def current?(path)
-    path.split('/')[1] == request.path_info.split('/')[1]
+    path == request.path_info
   end
 
   def link_to_unless_current(path, label)
