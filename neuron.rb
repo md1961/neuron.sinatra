@@ -39,7 +39,11 @@ helpers do
   end
 
   def default_date_from
-    (Date.today - DEFAULT_DAYS_TO_SHOW + 1).strftime(NeuronLoggedin::DATE_FORMAT)
+    days_to_date_from(DEFAULT_DAYS_TO_SHOW)
+  end
+
+  def days_to_date_from(days)
+    (Date.today - days + 1).strftime(NeuronLoggedin::DATE_FORMAT)
   end
 end
 
