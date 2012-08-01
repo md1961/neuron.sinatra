@@ -18,7 +18,8 @@ get '/detailed' do
 end
 
 get '/max_user_by_hour' do
-  @timestamp_and_max_users = NeuronLoggedin.max_user_by_hour(from: default_date_from)
+  date_from = params[:from] || default_date_from
+  @timestamp_and_max_users = NeuronLoggedin.max_user_by_hour(from: date_from)
   haml :max_user_by_hour
 end
 
