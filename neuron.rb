@@ -12,13 +12,13 @@ get '/' do
 end
 
 get '/detailed' do
-  date_from = params[:from] || default_date_from
+  date_from = get_date_from
   @loggedins = NeuronLoggedin.all(from: date_from)
   haml :detailed
 end
 
 get '/max_user_by_hour' do
-  date_from = params[:from] || default_date_from
+  date_from = get_date_from
   @timestamp_and_max_users = NeuronLoggedin.max_user_by_hour(from: date_from)
   haml :max_user_by_hour
 end
@@ -36,6 +36,10 @@ helpers do
 
   def link_to_unless_current(path, label)
     current?(path) ? "<b>#{label}</b>" : "<a href='#{url(path)}'>#{label}</a>"
+  end
+
+  def get_date_from
+    params[:from] || default_date_from
   end
 
   def default_date_from
