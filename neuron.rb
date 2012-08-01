@@ -39,7 +39,11 @@ helpers do
   end
 
   def get_date_from
-    params[:from] || default_date_from
+    if params[:days]
+      days_to_date_from([params[:days].to_i, DEFAULT_DAYS_TO_SHOW].max)
+    else
+      params[:from] || default_date_from
+    end
   end
 
   def default_date_from
