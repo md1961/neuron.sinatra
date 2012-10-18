@@ -4,11 +4,11 @@ require 'sinatra'
 require 'model/neuron_loggedin'
 
 
-DEFAULT_DAYS_TO_SHOW = 3
+DEFAULT_DAYS_TO_SHOW = 4
 
 
 get '/' do
-  redirect '/detailed'
+  redirect '/max_user_by_hour'
 end
 
 get '/detailed' do
