@@ -17,6 +17,14 @@ get '/detailed' do
   haml :detailed
 end
 
+MINIMUM_USERS_TO_DISPLAY_IN_DETAILED_MANY = 10
+
+get '/detailed_many' do
+  date_from = get_date_from
+  @loggedins = NeuronLoggedin.all(from: date_from, min_users: MINIMUM_USERS_TO_DISPLAY_IN_DETAILED_MANY)
+  haml :detailed
+end
+
 get '/max_user_by_hour' do
   date_from = get_date_from
   @timestamp_and_max_users = NeuronLoggedin.max_user_by_hour(from: date_from)

@@ -121,6 +121,7 @@ class NeuronLoggedin
 
     def self.read_log(options={})
       date_from = options[:from]
+      min_users = options[:min_users] || 0
 
       entries = Array.new
       users   = Array.new
@@ -131,6 +132,10 @@ class NeuronLoggedin
             users << User.new(line)
           else
             entry = Entry.new(line, users)
+            unless users.size >= min_users
+              users = Array.new
+              next
+            end
             break if date_from && entry.timestamp.before_daily?(date_from)
             entries << entry
 
